@@ -6,6 +6,7 @@
 echo -e '\033[1;33m *** CONVERTISSEUR .avi TO .mkv h264 ***\033[0m'
 echo ""
 
+# Verification des paquets necessaire
 paq="libav-tools"
 dpkg -l $paq &> /dev/null
 options=("oui" "non")
@@ -28,6 +29,7 @@ if [[ $? -ne 0 ]]; then
 	done
 fi
 
+# Recuperation des fichiers .avi
 file=(*.avi)
 if [[ ${#file[@]} -eq 0 || ${file[0]} =~ '*.avi' ]]; then
 	echo -e '\033[1;31m Aucun fichier .avi detecte !\033[0m'
@@ -35,14 +37,15 @@ if [[ ${#file[@]} -eq 0 || ${file[0]} =~ '*.avi' ]]; then
 	exit 1
 fi
 
+# Creation d'un repertoire temporaire
 rep="aviToMkv/"
 echo "Fichier a traiter : ${#file[@]}"
-
 if [[ ! -d $rep ]]; then
 	echo "Creation d'un dossier temporaire : aviToMkv/"
 	mkdir $rep
 fi
 
+# Conversion
 count=1
 for (( i=0; i < ${#file[@]}; i++ ))
 	do
@@ -55,6 +58,7 @@ done
 echo ""
 echo "Conversion de $count/${#file[@]} fichiers !"
 
+# Suppression des fichiers .avi
 PS3="Supprimer les fichiers .avi ? "
 select opt2 in ${options[@]}
 do
