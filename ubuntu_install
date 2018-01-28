@@ -1,0 +1,128 @@
+#!/bin/sh
+clear
+
+cd /tmp
+touch $HOME/.bash_aliases
+sa = 'sudo apt'
+m = 'leborgne.pirate@yahoo.fr'
+
+# update & upgrade
+$sa update
+$sa upgrade
+
+# hubiC
+li = 'http://mir7.ovh.net/ovh-applications/hubic/hubiC-Linux/2.1.0/'
+f = 'hubiC-Linux-2.1.0.53-linux.deb'
+echo "Getting hubiC from : $li"
+wget --progress=bar $li$f
+if [[ (! -e $f) && (! -d $1f) ]]
+	then
+		$sa install libmono-posix4.0-cil
+		$sa -f install
+		sudo dpkg -i $f
+		rm $f
+		echo 'Initiate hubiC'
+		mkdir $HOME/Téléchargements/hubiC
+		hubic login $m $HOME/Téléchargements/hubiC
+		hubic start
+else
+	echo "Couldn't install hubiC"
+fi
+
+# Spotify
+key = 'BBEBDCB318AD50EC6865090613B00F1FD2C19886 0DF731E45CE24F27EEEB1450EFDC8610341D9410'
+sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys $key
+echo deb http://repository.spotify.com stable non-free | sudo tee /etc/apt/sources.list.d/spotify.list
+$sa install spotify-client
+
+# mysql
+$sa install mysql-server
+sudo service mysql start
+
+# htop
+$sa install htop
+
+# desktop-file-utils
+$sa install desktop-file-utils
+
+# Viber
+li = 'http://download.cdn.viber.com/cdn/desktop/Linux/'
+f = 'viber.deb'
+echo "Getting Viber from : $li"
+wget --progress=bar $li$f
+f [[ (! -e $f) && (! -d $1f) ]]
+	then
+		sudo dpkg -i $f
+		rm $f
+		echo 'Initiate Viber'
+		/opt/viber/Viber
+	else
+	echo "Couldn't install hubiC"
+fi
+
+# Java
+sudo mkdir /lib/java
+li = 'http://javadl.oracle.com/webapps/download/AutoDL?BundleId=225345_090f390dda5b47b9b721c7dfaa008135'
+#wget --progress=bar $l
+
+# Eclipse (oracle)
+li = 'https://www.eclipse.org/downloads/download.php?file=/oomph/epp/oxygen/R/eclipse-inst-linux64.tar.gz&mirror_id=17'
+#wget --progress=bar $l
+
+# Sublime text
+wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
+echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+$sa update 
+$sa install sublime-text 
+
+# p7zp
+$sa install p7zp
+
+# indicator-cpufreq
+$sa install indicator-cpufreq
+
+# indicator-multiload
+$sa install indicator-multiload
+
+# wine
+wget https://dl.winehq.org/wine-builds/Release.key
+sudo apt-key add Release.key
+sudo apt-add-repository 'https://dl.winehq.org/wine-builds/ubuntu/'
+$sa install wine-stable
+
+# git
+$sa install git
+
+# wireshark
+$sa install wireshark-qt
+
+# gnome-tweak-tool
+$sa install gnome-tweak-tool
+mkdir $HOME/.theme
+
+# myunity
+$sa install myunity
+
+# unrar
+$sa install unrar
+
+# windscribe-cli
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-key FDC247B7
+echo 'deb https://repo.windscribe.com/ubuntu zesty main' | sudo tee /etc/apt/sources.list.d/windscribe-repo.list
+$sa install windscribe-cli
+
+# postgresql
+$sa install libpq5
+$sa update --fix-missing
+$sa install postgresql-9.5
+$sa install postgresql-client-common
+
+# agroUML
+li = 'http://argouml-downloads.tigris.org/nonav/argouml-0.34/ArgoUML-0.34.tar.gz'
+wget --progress=bar $li
+tar xzvf *.tar.gz
+rm $.tar.gz
+sudo mv argouml* /opt/
+
+# samba
+$sa install samba

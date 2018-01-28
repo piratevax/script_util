@@ -1,0 +1,31 @@
+#!/bin/bash
+
+file='main.c'
+option='-Wall -g'
+executable_def='SeqNP'
+
+clear
+
+if [ $# -eq 0 ]
+then
+	echo "Aucun paramètre saisie !"
+	if [ ! -e  $file ] && [ ! -d $file ]
+	then
+		echo "Le fichier $PWD/$file n'existe pas ou est invalide !!!"
+		exit
+	fi
+	echo "Compilation de \"$file\""
+	gcc $option $file -o $executable_def
+	echo "Executable : $executable_def"
+	exit
+elif [ ! -e  $1 ] && [ ! -d $1 ]
+then
+	echo "Le fichier $1 n'existe pas ou est invalide !!!"
+	exit
+else
+	echo "compilation de \"$1\""
+	gcc $option -o $executable_def $1
+	echo "Executable : $executable_def"
+fi
+
+
