@@ -4,7 +4,7 @@ clear
 cd /tmp
 touch $HOME/.bash_aliases
 sa = 'sudo apt'
-m = 'leborgne.pirate@yahoo.fr'
+m = $1
 
 # update & upgrade
 $sa update
